@@ -1,11 +1,13 @@
-# FluxUI Theme
+# agenticmorf/fluxui-theme
+
+Documentation is available on [GitHub Pages](https://agenticmorf.github.io/fluxui-theme/).
 
 FluxUI theme and appearance settings with color swatch pickers for Laravel applications using [Livewire Flux](https://fluxui.dev).
 
 ## Installation
 
 ```bash
-composer require christhompsontldr/fluxui-theme
+composer require agenticmorf/fluxui-theme
 ```
 
 Run the migration:

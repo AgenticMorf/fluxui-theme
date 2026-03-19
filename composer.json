@@ -1,6 +1,11 @@
 {
     "name": "agenticmorf/fluxui-theme",
+    "homepage": "https://github.com/AgenticMorf/fluxui-theme",
+    "support": {
+        "source": "https://github.com/AgenticMorf/fluxui-theme"
+    },
     "description": "FluxUI theme and appearance settings with color swatch pickers",
+    "type": "library",
     "keywords": ["laravel", "livewire", "fluxui", "theme", "appearance"],
     "license": "MIT",
     "authors": [
@@ -9,6 +14,15 @@
             "email": "christhompsontldr@gmail.com"
         }
     ],
+    "require-dev": {
+        "christhompsontldr/laravel-docit": "^1.0",
+        "laravel/framework": "^11.0|^12.0",
+        "orchestra/pest-plugin-testbench": "^4.0",
+        "orchestra/testbench": "^10.0",
+        "pestphp/pest": "^4.0",
+        "pestphp/pest-plugin-laravel": "^4.0",
+        "phpunit/phpunit": "^12.0"
+    },
     "require": {
         "php": "^8.2",
         "illuminate/support": "^11.0|^12.0",
@@ -21,11 +35,28 @@
             "AgenticMorf\\FluxuiTheme\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "AgenticMorf\\FluxuiTheme\\Tests\\": "tests/"
+        }
+    },
     "extra": {
         "laravel": {
             "providers": [
                 "AgenticMorf\\FluxuiTheme\\FluxuiThemeServiceProvider"
             ]
+        }
+    },
+    "scripts": {
+        "docit": "php vendor/bin/build-docs",
+        "test": "bash -c 'cd ../.. && vendor/bin/pest plugins/fluxui-theme/tests --configuration=plugins/fluxui-theme/phpunit.xml'",
+        "test:coverage": "bash -c 'cd ../.. && XDEBUG_MODE=coverage vendor/bin/pest plugins/fluxui-theme/tests --configuration=plugins/fluxui-theme/phpunit.xml --coverage'",
+        "test:type-coverage": "bash -c 'cd ../.. && vendor/bin/pest plugins/fluxui-theme/tests --configuration=plugins/fluxui-theme/phpunit.xml --type-coverage'",
+        "test:mutation": "bash -c 'cd ../.. && XDEBUG_MODE=coverage vendor/bin/pest plugins/fluxui-theme/tests --configuration=plugins/fluxui-theme/phpunit.xml --mutate --everything --covered-only --class=AgenticMorf\\\\FluxuiTheme'"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
         }
     },
     "minimum-stability": "stable",

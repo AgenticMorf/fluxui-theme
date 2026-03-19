@@ -1,0 +1,12 @@
+{
+  "order": ["index", "installation", "configuration", "usage"],
+  "labels": {
+    "index": "Guide",
+    "installation": "Installation",
+    "configuration": "Configuration",
+    "usage": "Usage"
+  },
+  "siteName": "Flux UI Theme",
+  "githubUrl": "https://github.com/AgenticMorf/fluxui-theme",
+  "editBaseUrl": "https://github.com/AgenticMorf/fluxui-theme/edit/main"
+}
