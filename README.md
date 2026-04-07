@@ -16,6 +16,8 @@ Run the migration:
 php artisan migrate
 ```
 
+The **App default** accent swatch and live preview use `config('fluxui-theme.defaults.accent')`. Publish or merge config so it matches your app’s CSS accent (for example `orange`).
+
 ## Requirements
 
 - Laravel 11+
