@@ -3,6 +3,8 @@
 use AgenticMorf\FluxuiTheme\AppearanceService;
 use Livewire\Volt\Component;
 
+\Livewire\Volt\layout(config('fluxui-theme.layout', 'components.layouts.app.sidebar'));
+
 new class extends Component {
     public string $theme;
 
@@ -52,6 +54,10 @@ new class extends Component {
 
 @php
     $appearanceService = app(AppearanceService::class);
+    $defaultAccent = config('fluxui-theme.defaults.accent', 'zinc');
+    if (! array_key_exists($defaultAccent, AppearanceService::ACCENT_COLORS)) {
+        $defaultAccent = 'zinc';
+    }
     // Target #flux-accent so we override the wrapper's server-rendered classes for live updates
     $accentCss = [
         'zinc' => '#flux-accent{--color-accent:var(--color-zinc-800);--color-accent-content:var(--color-zinc-800);--color-accent-foreground:var(--color-white)}.dark #flux-accent{--color-accent:var(--color-white);--color-accent-content:var(--color-white);--color-accent-foreground:var(--color-zinc-800)}',
@@ -79,7 +85,7 @@ new class extends Component {
     x-data="{
         accentCss: @js($accentCss),
         applyStyle(accent, base) {
-            accent = accent || 'zinc';
+            accent = accent || @js($defaultAccent);
             base = base || 'zinc';
             let styleEl = document.getElementById('fluxui-theme-live');
             if (!styleEl) {
@@ -124,7 +130,7 @@ new class extends Component {
                     class="flex items-center gap-1.5 rounded-md border-2 px-2 py-1.5 text-sm transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-zinc-900 {{ $accent === '' ? 'border-zinc-900 dark:border-white ring-2 ring-zinc-400 dark:ring-zinc-500' : 'border-zinc-200 dark:border-zinc-600 hover:border-zinc-300 dark:hover:border-zinc-500' }}"
                     title="{{ __('App default') }}"
                 >
-                    <span class="block size-5 shrink-0 rounded-sm bg-gradient-to-br from-zinc-400 to-zinc-600 dark:from-zinc-500 dark:to-zinc-700"></span>
+                    <span class="block size-5 shrink-0 rounded-sm {{ $appearanceService->getAccentSwatchClass($defaultAccent) }}"></span>
                     <span class="truncate text-xs text-zinc-600 dark:text-zinc-400">{{ __('App default') }}</span>
                 </button>
                 @foreach(AppearanceService::ACCENT_COLORS as $value => $label)
