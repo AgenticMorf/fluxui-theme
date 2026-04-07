@@ -3,7 +3,7 @@
 use AgenticMorf\FluxuiTheme\AppearanceService;
 use Livewire\Volt\Component;
 
-\Livewire\Volt\layout(config('fluxui-theme.layout', 'components.layouts.app.sidebar'));
+\Livewire\Volt\layout(config('fluxui-theme.layout', 'components.layouts.app'));
 
 new class extends Component {
     public string $theme;
