@@ -63,14 +63,16 @@ Include the appearance component **before** `@fluxAppearance` in your layout’s
 
 ### 3. Blade: Accent Color Wrapper
 
-Wrap your main app shell with `<flux:accent>` so accent colors apply. Pass the effective accent from `AppearanceService`:
+Wrap your main app shell with `<flux:accent>` so accent colors apply. Pass the effective accent from `AppearanceService`.
+
+**Set `id="flux-accent"`** on that component. Flux renders a plain `<div>` with no id by default; the appearance settings page injects live preview CSS that targets `#flux-accent`, so without this id the swatch picker will not update the UI in real time.
 
 ```blade
 @php
     $appearance = app(\AgenticMorf\FluxuiTheme\AppearanceService::class)->getEffective(auth()->user());
 @endphp
 <body>
-    <flux:accent :color="$appearance['accent']">
+    <flux:accent id="flux-accent" :color="$appearance['accent']">
         {{-- Your app content: sidebar, header, main, etc. --}}
     </flux:accent>
 </body>
