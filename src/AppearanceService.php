@@ -68,8 +68,6 @@ class AppearanceService
      * Swatch utilities must match class names Tailwind actually generates. Dynamic
      * values from PHP are invisible to Tailwind’s scanner; use the same light/dark
      * pairs as Flux’s avatar badge map so stubs already in @source produce CSS.
-     *
-     * @see \Livewire\Flux (avatar badge color map in flux/avatar)
      */
     public function getAccentSwatchClass(string $color): string
     {
