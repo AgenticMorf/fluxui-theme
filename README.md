@@ -170,7 +170,9 @@ $appearance = app(\AgenticMorf\FluxuiTheme\AppearanceService::class)->getEffecti
 
 ## Existing Migrations
 
-If your app already adds `appearance_preferences` to the `users` table, remove that column from your migration to avoid a duplicate column error. This package’s migration handles it.
+If your app already adds `appearance_preferences` to the `users` table, you can keep that migration: this package’s migration checks for the column before adding it, so running both is safe.
+
+If the column is missing at runtime, run `php artisan migrate` (see [installation](docs/installation.md#column-still-missing) for deploy notes).
 
 ## License
 
