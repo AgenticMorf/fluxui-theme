@@ -48,9 +48,8 @@ Give the package a real test suite, a matrix CI workflow, and standard quality g
 - `tests/TestCase.php` — extends `Orchestra\Testbench\TestCase`:
   - `getPackageProviders()` returns `[FluxuiThemeServiceProvider::class]`.
   - `defineDatabaseMigrations()` loads the package migration + a helper `users` table (id, email, `appearance_preferences` JSON).
-  - Publishes/configures an inline `User` model fixture with `$casts = ['appearance_preferences' => 'array']` and `$fillable = ['email', 'appearance_preferences']`.
   - Forces SQLite in-memory.
-- `tests/Fixtures/User.php` — minimal Eloquent user that satisfies `Authenticatable` + has the JSON cast.
+- `tests/Fixtures/User.php` — minimal Eloquent user that satisfies `Authenticatable`, has `$fillable = ['email', 'appearance_preferences']`, and `$casts = ['appearance_preferences' => 'array']`.
 
 **Files to change.**
 - `composer.json`
@@ -119,34 +118,24 @@ Give the package a real test suite, a matrix CI workflow, and standard quality g
 
 ---
 
-## Sub-issue 5 — Migration tests
+## Sub-issue 5 — Migration + route tests
 
-**Goal.** Prove the README's "running both is safe" guarantee and basic schema correctness.
+**Goal.** Prove the README's "running both is safe" migration guarantee and lock down the HTTP route contract.
 
-**Cases (in `tests/Feature/MigrationTest.php`).**
+**Migration cases (in `tests/Feature/MigrationTest.php`).**
 
 - `Schema::hasColumn('users', 'appearance_preferences')` → `true` after `defineDatabaseMigrations()` runs.
 - Column type is JSON.
 - Re-running the migration is a no-op (no exception). Do this by calling `Artisan::call('migrate')` a second time and asserting success + column still present.
 - Rolling back (`Artisan::call('migrate:rollback')`) removes the column.
 
-**Acceptance.** Migration idempotency is covered in CI, not just documented.
-
----
-
-## Sub-issue 5b — Route/HTTP feature test
-
-(Merged into this same sub-issue since it's a few extra cases.)
-
-**File.** `tests/Feature/AppearanceRouteTest.php`.
-
-**Cases.**
+**Route cases (in `tests/Feature/AppearanceRouteTest.php`).**
 
 - Unauthenticated GET of `appearance.edit` redirects to login.
 - Authenticated GET returns 200 and contains the three swatch `role="radiogroup"` regions.
 - The route is mounted at the configured path (`settings/appearance` default) and responds under a custom `config('fluxui-theme.route')` override.
 
-**Acceptance.** A broken route or missing middleware surfaces as a CI failure, not as a prod regression.
+**Acceptance.** Migration idempotency is covered in CI, not just documented. A broken route or missing middleware surfaces as a CI failure, not as a prod regression.
 
 ---
 
@@ -228,7 +217,7 @@ strategy:
 
 **Goal.** Light up the last three gates.
 
-**Coverage threshold.** Update `scripts.test` (or the CI invocation for the coverage cell) to pass `--coverage --min=90`. Enforced in the single cell that uploads coverage, not across the matrix.
+**Coverage threshold.** The `--coverage --min=90` flag was already wired into `composer test:coverage` in sub-issue 1. This sub-issue switches the CI coverage cell (`8.4 × L12 × highest`) to call `composer test:coverage` instead of `composer test`, so the threshold actually gates merge.
 
 **Mutation.** Add a `mutation` job to `tests.yml`:
 ```yaml
