@@ -2,31 +2,17 @@
 Ready-to-paste Linear issue content for the Foundations initiative.
 Target: AgenticMorf team / fluxui-theme project.
 
-HOW TO ASSOCIATE THE BRANCH
----------------------------
-Linear auto-links a branch when the branch name contains the issue identifier
-(e.g. MORF-42). Our current branch `feature/foundations-tests-ci` does NOT
-follow that convention, so pick one of:
+BRANCH NAME (tell Linear this on the parent issue)
+--------------------------------------------------
+  feature/foundations-tests-ci
 
-  A. After creating the parent issue, click the "Copy git branch name"
-     button in Linear's issue sidebar. It suggests a name like
-     `chris/morf-42-foundations-tests-ci-and-quality-gates`. Rename the
-     local branch to match:
-        git branch -m feature/foundations-tests-ci chris/morf-42-foundations...
-        git push origin -u chris/morf-42-foundations...
-        git push origin --delete feature/foundations-tests-ci  (optional)
+GitHub URL:
+  https://github.com/AgenticMorf/fluxui-theme/tree/feature/foundations-tests-ci
 
-  B. Leave the branch name as-is and manually paste the branch URL
-     into the parent issue's description (under "Branch"):
-        https://github.com/AgenticMorf/fluxui-theme/tree/feature/foundations-tests-ci
-     This does not create a live link in Linear's sidebar, but it is visible
-     in the description.
-
-  C. When you open the first PR, include `Fixes MORF-42` (or the real id)
-     in the PR body. GitHub's Linear integration will link the PR to the
-     issue — that's the strongest association.
-
-Recommend A for the parent issue and C for each sub-issue's PR.
+Paste the branch name into the parent issue's "Git branch" field in the
+Linear sidebar (or into the description if that field isn't visible). For
+sub-issue PRs, put "Fixes <LINEAR-ID>" in the PR body and Linear's GitHub
+integration will auto-link each PR to its issue.
 -->
 
 # Parent issue
@@ -68,7 +54,7 @@ On branch `feature/foundations-tests-ci`:
 ## Branch
 
 `feature/foundations-tests-ci`
-(Rename to `chris/<this-issue-id>-foundations-...` to get Linear's auto-link.)
+<https://github.com/AgenticMorf/fluxui-theme/tree/feature/foundations-tests-ci>
 
 ## Sub-issues
 
